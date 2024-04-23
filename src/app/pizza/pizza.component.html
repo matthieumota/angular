@@ -3,4 +3,6 @@
   <div [title]="pizza.name">ID: {{ pizza.id }}</div>
   <input type="text" [(ngModel)]="pizza.name">
   <div>Prix: {{ pizza.price }}</div>
+  <button (click)="cancel()">Annuler</button>
+  <button (click)="next()">Suivant</button>
 </div>

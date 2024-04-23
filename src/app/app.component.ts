@@ -39,7 +39,7 @@ export const exercices = [
 })
 export class AppComponent {
   title: string = 'pizzaparty';
-  selectedPizza!: Pizza;
+  selectedPizza!: Pizza | null;
   pizzas: Pizza[] = PIZZAS;
 
   user: User = new User('Mota', 'Fiorella', '2019-12-31', 'https://i.pravatar.cc/150?u=fiorella');
@@ -51,6 +51,28 @@ export class AppComponent {
   ];
 
   onSelect(pizza: Pizza): void {
+    if (this.selectedPizza === pizza) {
+      this.selectedPizza = null;
+
+      return;
+    }
+
     this.selectedPizza = pizza;
+  }
+
+  onCancel(event: string) {
+    console.log(event);
+    if (event === 'Annuler') {
+      this.selectedPizza = null;
+    } else if (event === 'Suivant') {
+      // Pizza 3
+      let currentId = this.selectedPizza ? this.selectedPizza.id : 0;
+      // On cherche la pizza 4
+      let nextPizza = this.pizzas.find((pizza) => pizza.id === currentId + 1);
+      if (! nextPizza) { // Si la pizza 4 n'existe pas, on prend la première pizza
+        nextPizza = this.pizzas[0];
+      }
+      this.selectedPizza = nextPizza;
+    }
   }
 }

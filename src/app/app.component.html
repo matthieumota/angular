@@ -1,7 +1,7 @@
 <app-menu [title]="title"></app-menu>
 
 <div class="container">
-  <app-pizza [pizza]="selectedPizza"></app-pizza>
+  <app-pizza [pizza]="selectedPizza" (canceled)="onCancel($event)"></app-pizza>
 
   <div class="pizzas row">
     <ng-container *ngFor="let pizza of pizzas; index as i;">
