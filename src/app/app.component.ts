@@ -55,6 +55,9 @@ export class AppComponent {
   numbers: number[] = [1, 2, 3];
   letters: string[] = ['a', 'b', 'c'];
 
+  // Le total pour les compteurs
+  total: number = 20; // 5 + 0 + 15 par rapport à mes compteurs
+
   onSelect(pizza: Pizza): void {
     if (this.selectedPizza === pizza) {
       this.selectedPizza = null;
@@ -79,5 +82,9 @@ export class AppComponent {
       }
       this.selectedPizza = nextPizza;
     }
+  }
+
+  incrementTotal(value: number): void {
+    this.total += value;
   }
 }
