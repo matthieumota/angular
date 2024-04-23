@@ -28,9 +28,12 @@
   En effet, modifier le Input directement pourrait entrainer
   une incohérence des données pour le parent. On pourra régler le soucis
   avec le Output. Pour la date, je peux aussi montrer le ngModelChange -->
-  <select [(ngModel)]="user.birthday">
+  <select [ngModel]="user.birthday" (ngModelChange)="user.birthday = $event">
     <option *ngFor="let year of dates" [value]="year">{{ year }}</option>
   </select>
 
   <app-ingredient-list [ingredients]="ingredients"></app-ingredient-list>
+
+  <!-- [value]="title" (valueChange)="title = $event" -->
+  <app-twoway [(value)]="title" [(array)]="letters"></app-twoway>
 </div>

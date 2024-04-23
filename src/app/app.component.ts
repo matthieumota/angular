@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { Ingredient } from './models/ingredient';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 import { MenuComponent } from './menu/menu.component';
+import { TwowayComponent } from './twoway/twoway.component';
 
 const PIZZAS: Pizza[] = [
   { id: 1, name: 'Reine', price: 12, image: '/assets/pizzas/reine.jpg' },
@@ -22,7 +23,8 @@ export const exercices = [
   CounterComponent,
   AuthorComponent,
   IngredientListComponent,
-  MenuComponent
+  MenuComponent,
+  TwowayComponent
 ];
 
 @Component({
@@ -49,6 +51,9 @@ export class AppComponent {
     { id: 1, name: 'Tomate', weight: 20, price: 0.50, image: 'tomate.png' },
     { id: 2, name: 'Avocat', weight: 60, price: 1.50, image: 'avocat.png' }
   ];
+
+  numbers: number[] = [1, 2, 3];
+  letters: string[] = ['a', 'b', 'c'];
 
   onSelect(pizza: Pizza): void {
     if (this.selectedPizza === pizza) {
