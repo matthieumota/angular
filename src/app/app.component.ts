@@ -73,6 +73,11 @@ export class AppComponent {
   }
 
   onCancel(event: string) {
+    // Pour être sûr que l'ingrédient ne reste pas "indéfiniment" sur la pizza
+    if (this.selectedPizza) {
+      this.selectedPizza.ingredient = null;
+    }
+
     console.log(event);
     if (event === 'Annuler') {
       this.selectedPizza = null;
