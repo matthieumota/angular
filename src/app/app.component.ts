@@ -17,7 +17,7 @@ const PIZZAS: Pizza[] = [
 ];
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
-const exercices = [
+export const exercices = [
   CounterComponent,
   AuthorComponent,
   IngredientListComponent

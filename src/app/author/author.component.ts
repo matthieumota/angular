@@ -18,6 +18,9 @@ import { FormsModule } from '@angular/forms';
           <input type="checkbox" [(ngModel)]="show">
           <ng-container *ngIf="!show; else other"> Afficher avatar</ng-container>
           <ng-template #other> Cacher avatar</ng-template>
+
+          <p *ngIf="!show">Afficher avatar</p>
+          <p *ngIf="show">Cacher avatar</p>
         </label>
       </div>
     </div>
