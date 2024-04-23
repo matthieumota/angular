@@ -28,3 +28,5 @@
 <select [(ngModel)]="user.birthday">
   <option *ngFor="let year of dates" [value]="year">{{ year }}</option>
 </select>
+
+<app-ingredient-list [ingredients]="ingredients"></app-ingredient-list>
