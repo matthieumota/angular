@@ -1,32 +1,36 @@
 <app-menu [title]="title"></app-menu>
 
-<app-pizza [pizza]="selectedPizza"></app-pizza>
+<div class="container">
+  <app-pizza [pizza]="selectedPizza"></app-pizza>
 
-<ul class="pizzas">
-  <ng-container *ngFor="let pizza of pizzas; index as i;">
-    <li *ngIf="pizza.price > 0"
-        (click)="onSelect(pizza)"
-        [class.selected]="pizza === selectedPizza"
-        [ngClass]="{ reine: pizza.name === 'Reine', titi: pizza.name === 'Cannibale' }"
-    >
-      {{ pizza.id }}: {{ pizza.name }} {{ i }}
-    </li>
-  </ng-container>
-</ul>
+  <div class="pizzas row">
+    <ng-container *ngFor="let pizza of pizzas; index as i;">
+      <div *ngIf="pizza.price > 0"
+          (click)="onSelect(pizza)"
+          class="col-sm-6 col-lg-3"
+          [class.selected]="pizza === selectedPizza"
+          [ngClass]="{ reine: pizza.name === 'Reine', titi: pizza.name === 'Cannibale' }"
+      >
+        <h2>{{ pizza.id }}: {{ pizza.name }} {{ i }}</h2>
+        <img class="img-fluid w-100" [src]="pizza.image" [alt]="pizza.name">
+      </div>
+    </ng-container>
+  </div>
 
-<h1>Exercices Composants</h1>
-<app-counter [value]="5"></app-counter>
-<app-counter></app-counter>
-<app-counter [value]="15"></app-counter>
+  <h1>Exercices Composants</h1>
+  <app-counter [value]="5"></app-counter>
+  <app-counter></app-counter>
+  <app-counter [value]="15"></app-counter>
 
-<app-author [author]="user"></app-author>
-<!-- Je préfére mettre le select en dehors du composant
- pour pouvoir modifier directement la valeur passée en Input.
- En effet, modifier le Input directement pourrait entrainer
- une incohérence des données pour le parent. On pourra régler le soucis
- avec le Output. Pour la date, je peux aussi montrer le ngModelChange -->
-<select [(ngModel)]="user.birthday">
-  <option *ngFor="let year of dates" [value]="year">{{ year }}</option>
-</select>
+  <app-author [author]="user"></app-author>
+  <!-- Je préfére mettre le select en dehors du composant
+  pour pouvoir modifier directement la valeur passée en Input.
+  En effet, modifier le Input directement pourrait entrainer
+  une incohérence des données pour le parent. On pourra régler le soucis
+  avec le Output. Pour la date, je peux aussi montrer le ngModelChange -->
+  <select [(ngModel)]="user.birthday">
+    <option *ngFor="let year of dates" [value]="year">{{ year }}</option>
+  </select>
 
-<app-ingredient-list [ingredients]="ingredients"></app-ingredient-list>
+  <app-ingredient-list [ingredients]="ingredients"></app-ingredient-list>
+</div>

@@ -11,10 +11,10 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
 import { MenuComponent } from './menu/menu.component';
 
 const PIZZAS: Pizza[] = [
-  { id: 1, name: 'Reine', price: 12 },
-  { id: 2, name: '4 fromages', price: 13 },
-  { id: 3, name: 'Orientale', price: 11 },
-  { id: 4, name: 'Cannibale', price: 9 }
+  { id: 1, name: 'Reine', price: 12, image: '/assets/pizzas/reine.jpg' },
+  { id: 2, name: '4 fromages', price: 13, image: '/assets/pizzas/4-fromages.jpg' },
+  { id: 3, name: 'Orientale', price: 11, image: '/assets/pizzas/orientale.jpg' },
+  { id: 4, name: 'Cannibale', price: 9, image: '/assets/pizzas/cannibale.jpg' }
 ];
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
