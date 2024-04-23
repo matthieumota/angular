@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PizzaComponent } from './pizza/pizza.component';
 import { Pizza } from './models/pizza';
+import { CounterComponent } from './counter/counter.component';
 
 const PIZZAS: Pizza[] = [
   { id: 1, name: 'Reine', price: 12 },
@@ -13,7 +14,7 @@ const PIZZAS: Pizza[] = [
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, PizzaComponent],
+  imports: [CommonModule, PizzaComponent, CounterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
