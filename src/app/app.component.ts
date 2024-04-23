@@ -8,6 +8,7 @@ import { User } from './models/user';
 import { FormsModule } from '@angular/forms';
 import { Ingredient } from './models/ingredient';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
+import { MenuComponent } from './menu/menu.component';
 
 const PIZZAS: Pizza[] = [
   { id: 1, name: 'Reine', price: 12 },
@@ -20,7 +21,8 @@ const PIZZAS: Pizza[] = [
 export const exercices = [
   CounterComponent,
   AuthorComponent,
-  IngredientListComponent
+  IngredientListComponent,
+  MenuComponent
 ];
 
 @Component({
