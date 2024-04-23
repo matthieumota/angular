@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
       <div class="card-body">
         <h5 class="card-title">{{ author.firstname + ' ' + author.name }}</h5>
         <p class="card-text">{{ author.age }} ans</p>
+        <p *ngIf="author.age >= 18">Vous êtes majeur</p>
         <label>
           <input type="checkbox" [(ngModel)]="show">
           <ng-container *ngIf="!show; else other"> Afficher avatar</ng-container>
