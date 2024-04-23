@@ -3,6 +3,12 @@
   <div [title]="pizza.name">ID: {{ pizza.id }}</div>
   <input type="text" [(ngModel)]="pizza.name">
   <div>Prix: {{ pizza.price }}</div>
+
+  <div *ngIf="pizza.ingredient" class="d-flex">
+    <h3>{{ pizza.ingredient.name }}</h3>
+    <img class="img-fluid" [width]="50" [src]="pizza.ingredient.image" [alt]="pizza.ingredient.name">
+  </div>
+
   <button (click)="cancel()">Annuler</button>
   <button (click)="next()">Suivant</button>
 </div>

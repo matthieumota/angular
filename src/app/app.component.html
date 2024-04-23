@@ -18,6 +18,8 @@
   </div>
 
   <h1>Exercices Composants</h1>
+  <app-ingredient-list [ingredients]="ingredients" (selected)="addIngredientToSelectedPizza($event)"></app-ingredient-list>
+
   <app-counter [value]="5" (incremented)="incrementTotal($event)"></app-counter>
   <app-counter (incremented)="incrementTotal($event)"></app-counter>
   <app-counter [value]="15" (incremented)="incrementTotal($event)"></app-counter>
@@ -35,8 +37,7 @@
     <option *ngFor="let year of dates" [value]="year">{{ year }}</option>
   </select>
 
-  <app-ingredient-list [ingredients]="ingredients"></app-ingredient-list>
-
+  <p>Le two way binding</p>
   <!-- [value]="title" (valueChange)="title = $event" -->
-  <app-twoway [(value)]="title" [(array)]="letters"></app-twoway>
+  <app-twoway [(value)]="title" [(array)]="numbers"></app-twoway>
 </div>

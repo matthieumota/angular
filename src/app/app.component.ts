@@ -48,8 +48,8 @@ export class AppComponent {
   dates: Array<string> = User.dates();
 
   ingredients: Array<Ingredient> = [
-    { id: 1, name: 'Tomate', weight: 20, price: 0.50, image: 'tomate.png' },
-    { id: 2, name: 'Avocat', weight: 60, price: 1.50, image: 'avocat.png' }
+    { id: 1, name: 'Tomate', weight: 20, price: 0.50, image: '/assets/ingredients/tomate.png' },
+    { id: 2, name: 'Avocat', weight: 60, price: 1.50, image: '/assets/ingredients/avocat.png' }
   ];
 
   numbers: number[] = [1, 2, 3];
@@ -59,6 +59,10 @@ export class AppComponent {
   total: number = 20; // 5 + 0 + 15 par rapport à mes compteurs
 
   onSelect(pizza: Pizza): void {
+    if (this.selectedPizza) {
+      this.selectedPizza.ingredient = null;
+    }
+
     if (this.selectedPizza === pizza) {
       this.selectedPizza = null;
 
@@ -86,5 +90,11 @@ export class AppComponent {
 
   incrementTotal(value: number): void {
     this.total += value;
+  }
+
+  addIngredientToSelectedPizza(ingredient: Ingredient): void {
+    if (this.selectedPizza) {
+      this.selectedPizza.ingredient = ingredient;
+    }
   }
 }
