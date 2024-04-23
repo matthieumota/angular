@@ -1,13 +1,15 @@
 <h1>{{ title }}</h1>
-<div *ngIf="selectedPizza">
-  <h2>{{ selectedPizza.name }}</h2>
-  <div [title]="selectedPizza.name">ID: {{ selectedPizza.id }}</div>
-  <input type="text" [(ngModel)]="selectedPizza.name">
-  <div>Prix: {{ selectedPizza.price }}</div>
-</div>
+
+<app-pizza [pizza]="selectedPizza"></app-pizza>
 
 <ul class="pizzas">
-  <li *ngFor="let pizza of pizzas; index as i;" (click)="onSelect(pizza)">
-    {{ pizza.id }}: {{ pizza.name }} {{ i }}
-  </li>
+  <ng-container *ngFor="let pizza of pizzas; index as i;">
+    <li *ngIf="pizza.price > 0"
+        (click)="onSelect(pizza)"
+        [class.selected]="pizza === selectedPizza"
+        [ngClass]="{ reine: pizza.name === 'Reine', titi: pizza.name === 'Cannibale' }"
+    >
+      {{ pizza.id }}: {{ pizza.name }} {{ i }}
+    </li>
+  </ng-container>
 </ul>
