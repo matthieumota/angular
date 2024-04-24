@@ -1,23 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Pizza } from '../models/pizza';
-
-const PIZZAS: Pizza[] = [
-  { id: 1, name: 'Reine', price: 12, image: '/assets/pizzas/reine.jpg' },
-  { id: 2, name: '4 fromages', price: 13, image: '/assets/pizzas/4-fromages.jpg' },
-  { id: 3, name: 'Orientale', price: 11, image: '/assets/pizzas/orientale.jpg' },
-  { id: 4, name: 'Cannibale', price: 9, image: '/assets/pizzas/cannibale.jpg' }
-];
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PizzaService {
-  constructor() {
+  constructor(private http: HttpClient) {
     console.log('INSTANCE');
   }
 
+  // Requêtes sur notre API (fakeInterceptor)
+  // - /api/pizzas => GET
+  // - /api/pizzas/1 => GET
+  // - /api/pizzas => POST
+  // - /api/pizzas/1 => PUT
+  // - /api/pizzas/1 => DELETE
   getPizzas(): Promise<Pizza[]> {
-    return Promise.resolve(PIZZAS);
+    return lastValueFrom(this.http.get<Pizza[]>('https://monapi.com/api/pizzas'));
+  }
+
+  getPizza(id: number): Promise<Pizza> {
+    return lastValueFrom(this.http.get<Pizza>(`https://monapi.com/api/pizzas/${id}`));
+  }
+
+  update(pizza: Pizza) {
+    return lastValueFrom(this.http.put<Pizza>(`https://monapi.com/api/pizzas/${pizza.id}`, pizza));
   }
 
   getPizzasSlowly(): Promise<Pizza[]> {
