@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
   ) {
     // Ce que fait Angular...
     // let component = new AppComponent(new PizzaService());
-    console.log(totoService);
+    // console.log(totoService);
   }
 
   // Code exécuté lorsque le composant est complétement initialisé

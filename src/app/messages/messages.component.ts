@@ -24,7 +24,7 @@ export class MessagesComponent implements OnInit {
 
   // Mettre le service en public permet d'y accéder dans le template
   constructor(public messageService: MessageService) {
-    console.log(messageService);
+    // console.log(messageService);
   }
 
   ngOnInit(): void {
