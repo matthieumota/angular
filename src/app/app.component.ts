@@ -11,6 +11,8 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
 import { MenuComponent } from './menu/menu.component';
 import { TwowayComponent } from './twoway/twoway.component';
 import { PizzaService } from './services/pizza.service';
+import { MessagesComponent } from './messages/messages.component';
+import { MessageService } from './services/message.service';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
@@ -18,7 +20,8 @@ export const exercices = [
   AuthorComponent,
   IngredientListComponent,
   MenuComponent,
-  TwowayComponent
+  TwowayComponent,
+  MessagesComponent
 ];
 
 @Component({
@@ -54,7 +57,10 @@ export class AppComponent implements OnInit {
   // Le total pour les compteurs
   total: number = 20; // 5 + 0 + 15 par rapport à mes compteurs
 
-  constructor(private pizzaService: PizzaService) {
+  constructor(
+    private pizzaService: PizzaService,
+    private messageService: MessageService
+  ) {
     // Ce que fait Angular...
     // let component = new AppComponent(new PizzaService());
   }
@@ -80,6 +86,9 @@ export class AppComponent implements OnInit {
     }
 
     this.selectedPizza = pizza;
+
+    // Ce message est partagé à travers toute l'application grâce au service
+    this.messageService.add(`Vous avez choisi ${this.selectedPizza.name}`);
   }
 
   onCancel(event: string) {

@@ -1,6 +1,8 @@
 <app-menu [title]="title"></app-menu>
 
 <div class="container">
+  <app-messages></app-messages>
+
   <app-pizza [pizza]="selectedPizza" (canceled)="onCancel($event)"></app-pizza>
 
   <div class="pizzas row">
