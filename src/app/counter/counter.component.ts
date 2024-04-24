@@ -25,6 +25,14 @@ export class CounterComponent {
 
   @Output() valueChange: EventEmitter<number> = new EventEmitter();
 
+  constructor() {
+    console.log(this.value);
+  }
+
+  ngOnInit() {
+    console.log(this.value);
+  }
+
   increment(value: number): void {
     this.value += value;
 

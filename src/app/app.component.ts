@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PizzaComponent } from './pizza/pizza.component';
 import { Pizza } from './models/pizza';
 import { CounterComponent } from './counter/counter.component';
@@ -10,13 +10,7 @@ import { Ingredient } from './models/ingredient';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 import { MenuComponent } from './menu/menu.component';
 import { TwowayComponent } from './twoway/twoway.component';
-
-const PIZZAS: Pizza[] = [
-  { id: 1, name: 'Reine', price: 12, image: '/assets/pizzas/reine.jpg' },
-  { id: 2, name: '4 fromages', price: 13, image: '/assets/pizzas/4-fromages.jpg' },
-  { id: 3, name: 'Orientale', price: 11, image: '/assets/pizzas/orientale.jpg' },
-  { id: 4, name: 'Cannibale', price: 9, image: '/assets/pizzas/cannibale.jpg' }
-];
+import { PizzaService } from './services/pizza.service';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
@@ -36,13 +30,15 @@ export const exercices = [
     PizzaComponent,
     ...exercices
   ],
+  // providers: [PizzaService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title: string = 'pizzaparty';
   selectedPizza!: Pizza | null;
-  pizzas: Pizza[] = PIZZAS;
+  pizzas: Pizza[] = [];
+  loading: boolean = false;
 
   user: User = new User('Mota', 'Fiorella', '2019-12-31', 'https://i.pravatar.cc/150?u=fiorella');
   dates: Array<string> = User.dates();
@@ -57,6 +53,20 @@ export class AppComponent {
 
   // Le total pour les compteurs
   total: number = 20; // 5 + 0 + 15 par rapport à mes compteurs
+
+  constructor(private pizzaService: PizzaService) {
+    // Ce que fait Angular...
+    // let component = new AppComponent(new PizzaService());
+  }
+
+  // Code exécuté lorsque le composant est complétement initialisé
+  ngOnInit() {
+    this.loading = true;
+    // Ici, on va attendre le résultat de la promesse
+    this.pizzaService.getPizzasSlowly().then(
+      pizzas => this.pizzas = pizzas
+    ).finally(() => this.loading = false);
+  }
 
   onSelect(pizza: Pizza): void {
     if (this.selectedPizza) {

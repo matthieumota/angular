@@ -4,6 +4,9 @@
   <app-pizza [pizza]="selectedPizza" (canceled)="onCancel($event)"></app-pizza>
 
   <div class="pizzas row">
+    <div *ngIf="loading" class="d-flex justify-content-center py-5">
+      <div class="spinner-border"></div>
+    </div>
     <ng-container *ngFor="let pizza of pizzas; index as i;">
       <div *ngIf="pizza.price > 0"
           (click)="onSelect(pizza)"
