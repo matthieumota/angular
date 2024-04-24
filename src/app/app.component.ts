@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     // Ici, on va attendre le résultat de la promesse
-    this.pizzaService.getPizzasSlowly().then(
+    this.pizzaService.getPizzas().then(
       pizzas => this.pizzas = pizzas
     ).finally(() => this.loading = false);
   }
@@ -114,6 +114,22 @@ export class AppComponent implements OnInit {
       }
       this.selectedPizza = nextPizza;
     }
+  }
+
+  deletePizza(pizza: Pizza, event: Event) {
+    // Empêche le clic de se propager jusqu'aux parents
+    event.stopPropagation();
+
+    // debugger; // Pour un debug plus puissant que le console.log
+
+    // Après le delete, on va devoir mettre à jour notre tableau.
+    // Plusieurs solutions :
+    // - Filtrer le tableau en gardant toutes les pizzas sauf celle supprimée
+    // - Recharger les données de l'API
+    // - Ou modifier le fake interceptor (splice au lieu de filter)
+    this.pizzaService.delete(pizza).then(
+      () => this.pizzas = this.pizzas.filter(p => p.id !== pizza.id)
+    );
   }
 
   incrementTotal(value: number): void {

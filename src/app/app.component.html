@@ -20,6 +20,7 @@
       >
         <h2>{{ pizza.id }}: {{ pizza.name }} {{ i }}</h2>
         <img class="img-fluid w-100" [src]="pizza.image" [alt]="pizza.name">
+        <button class="btn btn-danger" (click)="deletePizza(pizza, $event)">X</button>
       </div>
     </ng-container>
   </div>

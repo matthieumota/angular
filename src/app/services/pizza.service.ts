@@ -25,8 +25,12 @@ export class PizzaService {
     return lastValueFrom(this.http.get<Pizza>(`https://monapi.com/api/pizzas/${id}`));
   }
 
-  update(pizza: Pizza) {
+  update(pizza: Pizza): Promise<Pizza> {
     return lastValueFrom(this.http.put<Pizza>(`https://monapi.com/api/pizzas/${pizza.id}`, pizza));
+  }
+
+  delete(pizza: Pizza): Promise<void> {
+    return lastValueFrom(this.http.delete<void>(`https://monapi.com/api/pizzas/${pizza.id}`));
   }
 
   getPizzasSlowly(): Promise<Pizza[]> {
