@@ -13,6 +13,7 @@ import { TwowayComponent } from './twoway/twoway.component';
 import { PizzaService } from './services/pizza.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './services/message.service';
+import { PizzaModule, TotoService } from './modules/pizza/pizza.module';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
@@ -28,8 +29,9 @@ export const exercices = [
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
+    // CommonModule,
+    PizzaModule,
+    // FormsModule,
     PizzaComponent,
     ...exercices
   ],
@@ -59,10 +61,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private pizzaService: PizzaService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private totoService: TotoService
   ) {
     // Ce que fait Angular...
     // let component = new AppComponent(new PizzaService());
+    console.log(totoService);
   }
 
   // Code exécuté lorsque le composant est complétement initialisé
