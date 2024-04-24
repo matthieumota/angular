@@ -14,6 +14,7 @@ import { PizzaService } from './services/pizza.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './services/message.service';
 import { PizzaModule, TotoService } from './modules/pizza/pizza.module';
+import { PizzaSearchComponent } from './pizza-search/pizza-search.component';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
@@ -22,7 +23,8 @@ export const exercices = [
   IngredientListComponent,
   MenuComponent,
   TwowayComponent,
-  MessagesComponent
+  MessagesComponent,
+  PizzaSearchComponent
 ];
 
 @Component({

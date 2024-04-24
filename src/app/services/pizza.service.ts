@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Pizza } from '../models/pizza';
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,10 @@ export class PizzaService {
 
   create(name: string, price: number = 10): Promise<Pizza> {
     return lastValueFrom(this.http.post<Pizza>(`https://monapi.com/api/pizzas`, { name, price, image: '/assets/pizzas/reine.jpg' }));
+  }
+
+  search(value: string): Observable<any> {
+    return this.http.get(`https://jsonplaceholder.typicode.com/users?q=${value}`);
   }
 
   getPizzasSlowly(): Promise<Pizza[]> {
