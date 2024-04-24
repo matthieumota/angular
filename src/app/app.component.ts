@@ -116,7 +116,19 @@ export class AppComponent implements OnInit {
     }
   }
 
-  deletePizza(pizza: Pizza, event: Event) {
+  addPizza(input: HTMLInputElement): void {
+    console.log(input);
+    if (!input.value.trim()) return;
+
+    this.pizzaService.create(input.value, 13).then(
+      pizza => {
+        this.pizzas.push(pizza);
+        input.value = '';
+      }
+    );
+  }
+
+  deletePizza(pizza: Pizza, event: Event): void {
     // Empêche le clic de se propager jusqu'aux parents
     event.stopPropagation();
 

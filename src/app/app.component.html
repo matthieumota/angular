@@ -25,6 +25,17 @@
     </ng-container>
   </div>
 
+  <div>
+    <label>Nom: </label>
+    <input type="text" #pizzaName>
+    {{ pizzaName.value }} <!-- attention, le dom n'est pas mis à jour au changement d'une variable locale -->
+    <button (click)="addPizza(pizzaName)" class="btn btn-primary"
+      [disabled]="false && !pizzaName.value"
+    >
+      Ajouter
+    </button>
+  </div>
+
   <h1>Exercices Composants</h1>
   <app-ingredient-list [ingredients]="ingredients" (selected)="addIngredientToSelectedPizza($event)"></app-ingredient-list>
 

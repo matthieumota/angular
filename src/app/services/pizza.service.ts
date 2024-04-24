@@ -33,6 +33,10 @@ export class PizzaService {
     return lastValueFrom(this.http.delete<void>(`https://monapi.com/api/pizzas/${pizza.id}`));
   }
 
+  create(name: string, price: number = 10): Promise<Pizza> {
+    return lastValueFrom(this.http.post<Pizza>(`https://monapi.com/api/pizzas`, { name, price, image: '/assets/pizzas/reine.jpg' }));
+  }
+
   getPizzasSlowly(): Promise<Pizza[]> {
     return new Promise((resolve) => {
       setTimeout(() => resolve(this.getPizzas()), 1000);
