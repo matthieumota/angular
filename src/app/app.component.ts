@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PizzaComponent } from './pizza/pizza.component';
 import { Pizza } from './models/pizza';
 import { CounterComponent } from './counter/counter.component';
@@ -15,7 +15,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './services/message.service';
 import { PizzaModule, TotoService } from './modules/pizza/pizza.module';
 import { PizzaSearchComponent } from './pizza-search/pizza-search.component';
-import { finalize } from 'rxjs';
+import { Observable, debounceTime, filter, finalize, from, fromEvent, map, of } from 'rxjs';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
@@ -62,6 +62,10 @@ export class AppComponent implements OnInit {
   // Le total pour les compteurs
   total: number = 20; // 5 + 0 + 15 par rapport à mes compteurs
 
+  obs$!: Observable<any>;
+
+  @ViewChild('mySearch') mySearch!: ElementRef;
+
   constructor(
     private pizzaService: PizzaService,
     private messageService: MessageService,
@@ -72,8 +76,27 @@ export class AppComponent implements OnInit {
     // console.log(totoService);
   }
 
+  // Code exécuté quand les ViewChild sont "dispos"
+  ngAfterViewInit() {
+    fromEvent<InputEvent>(this.mySearch.nativeElement, 'input')
+      .pipe(
+        map((event: InputEvent) => event.data),
+        debounceTime(500)
+      )
+      .subscribe(key => console.log(key));
+  }
+
   // Code exécuté lorsque le composant est complétement initialisé
   ngOnInit() {
+    from(['a', 'b', 'c', 'cc', 'dd', 'ee'])
+      .pipe(
+        filter(l => l.length === 1),
+        map(l => l.toUpperCase()),
+      )
+      .subscribe(l => console.log(l));
+    
+    of(['a', 'b', 'c']).subscribe(l => console.log(l));
+
     this.loading = true;
     // Ici, on va attendre le résultat de la promesse
     // this.pizzaService.getPizzas().subscribe(pizzas => {
