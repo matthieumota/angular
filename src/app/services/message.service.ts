@@ -11,8 +11,8 @@ export interface Message {
 })
 export class MessageService {
   private messages: Message[] = [
-    { content: 'A', type: 'primary' },
-    { content: 'B', type: 'danger' },
+    /* { content: 'A', type: 'primary' },
+    { content: 'B', type: 'danger' }, */
   ];
 
   getMessages(): Promise<Message[]> {
