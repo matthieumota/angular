@@ -1,0 +1,25 @@
+<form (ngSubmit)="save(pizzaForm)" #pizzaForm="ngForm">
+    <div class="mb-3">
+        <label for="name">Nom</label>
+        <input name="name" id="name" [(ngModel)]="pizza.name" class="form-control"
+            [class.is-invalid]="name.dirty && name.invalid"
+            required minlength="3" #name="ngModel">
+        <div class="invalid-feedback" *ngIf="name.dirty && name.hasError('required')">
+            Le nom de la pizza est obligatoire
+        </div>
+        <div class="invalid-feedback" *ngIf="name.dirty && name.hasError('minlength')">
+            Le nom de la pizza doit faire 3 caractères
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="price">Prix</label>
+        <input type="number" name="price" id="price" [(ngModel)]="pizza.price" class="form-control"
+            [class.is-invalid]="price.dirty && price.invalid"
+            required min="0" #price="ngModel">
+        <div class="invalid-feedback" *ngIf="price.dirty && price.invalid">
+            Le prix de la pizza est obligatoire et doit faire 0 au minimum.
+        </div>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="pizzaForm.invalid">Valider</button>
+</form>

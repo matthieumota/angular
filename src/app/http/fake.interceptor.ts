@@ -59,7 +59,7 @@ export const fakeInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next) 
     return '';
   }
 
-  if (url.match(/\/api\/pizzas\/\d+/) && method === 'GET') {
+  if (url.match(/\/api\/pizzas\/+/) && method === 'GET') {
     const pizza = pizzas.find(p => p.id === idFromUrl());
 
     return response(pizza, pizza ? 200 : 404);
