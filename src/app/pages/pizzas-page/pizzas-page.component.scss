@@ -1,0 +1,11 @@
+.pizzas li:hover {
+    cursor: pointer;
+}
+
+.pizzas .selected {
+    background-color: lightgray;
+}
+
+.pizzas .reine {
+    border: 1px solid red;
+}

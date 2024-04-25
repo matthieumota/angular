@@ -1,27 +1,21 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { PizzaComponent } from './pizza/pizza.component';
-import { Pizza } from './models/pizza';
 import { CounterComponent } from './counter/counter.component';
 import { AuthorComponent } from './author/author.component';
 import { User } from './models/user';
 import { FormsModule } from '@angular/forms';
-import { Ingredient } from './models/ingredient';
-import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 import { MenuComponent } from './menu/menu.component';
 import { TwowayComponent } from './twoway/twoway.component';
-import { PizzaService } from './services/pizza.service';
 import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './services/message.service';
 import { PizzaModule, TotoService } from './modules/pizza/pizza.module';
 import { PizzaSearchComponent } from './pizza-search/pizza-search.component';
-import { Observable, debounceTime, filter, finalize, find, from, fromEvent, map, of, tap, timer, zip } from 'rxjs';
+import { Observable, debounceTime, filter, find, from, fromEvent, map, of, tap, timer, zip } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
   CounterComponent,
   AuthorComponent,
-  IngredientListComponent,
   MenuComponent,
   TwowayComponent,
   MessagesComponent,
@@ -35,8 +29,8 @@ export const exercices = [
     // CommonModule,
     PizzaModule,
     // FormsModule,
+    RouterOutlet,
     AsyncPipe,
-    PizzaComponent,
     ...exercices
   ],
   // providers: [PizzaService],
@@ -45,17 +39,9 @@ export const exercices = [
 })
 export class AppComponent implements OnInit {
   title: string = 'pizzaparty';
-  selectedPizza!: Pizza | null;
-  pizzas: Pizza[] = [];
-  loading: boolean = false;
 
   user: User = new User('Mota', 'Fiorella', '2019-12-31', 'https://i.pravatar.cc/150?u=fiorella');
   dates: Array<string> = User.dates();
-
-  ingredients: Array<Ingredient> = [
-    { id: 1, name: 'Tomate', weight: 20, price: 0.50, image: '/assets/ingredients/tomate.png' },
-    { id: 2, name: 'Avocat', weight: 60, price: 1.50, image: '/assets/ingredients/avocat.png' }
-  ];
 
   numbers: number[] = [1, 2, 3];
   letters: string[] = ['a', 'b', 'c'];
@@ -77,8 +63,6 @@ export class AppComponent implements OnInit {
   ];
 
   constructor(
-    private pizzaService: PizzaService,
-    private messageService: MessageService,
     private totoService: TotoService
   ) {
     // Ce que fait Angular...
@@ -123,97 +107,10 @@ export class AppComponent implements OnInit {
       filter(c => c.code.rgba[2] === 0),
       // find(c => c.color === 'red'),
       map(c => c.color),
-    );
-
-    this.loading = true;
-    // Ici, on va attendre le résultat de la promesse
-    // this.pizzaService.getPizzas().subscribe(pizzas => {
-    //   this.pizzas = pizzas;
-    //   this.loading = false;
-    // });
-
-    this.pizzaService.getPizzas().pipe(
-      // Exécute le callback quoi qu'il arrive après le next ou l'error
-      finalize(() => this.loading = false)
-    ).subscribe({
-      next: pizzas => this.pizzas = pizzas,
-      error: (error) => console.log(error)
-    });
-  }
-
-  onSelect(pizza: Pizza): void {
-    if (this.selectedPizza) {
-      this.selectedPizza.ingredient = null;
-    }
-
-    if (this.selectedPizza === pizza) {
-      this.selectedPizza = null;
-
-      return;
-    }
-
-    this.selectedPizza = pizza;
-
-    // Ce message est partagé à travers toute l'application grâce au service
-    this.messageService.add(`Vous avez choisi ${this.selectedPizza.name}`);
-  }
-
-  onCancel(event: string) {
-    // Pour être sûr que l'ingrédient ne reste pas "indéfiniment" sur la pizza
-    if (this.selectedPizza) {
-      this.selectedPizza.ingredient = null;
-    }
-
-    console.log(event);
-    if (event === 'Annuler') {
-      this.selectedPizza = null;
-    } else if (event === 'Suivant') {
-      // Pizza 3
-      let currentId = this.selectedPizza ? this.selectedPizza.id : 0;
-      // On cherche la pizza 4
-      let nextPizza = this.pizzas.find((pizza) => pizza.id === currentId + 1);
-      if (! nextPizza) { // Si la pizza 4 n'existe pas, on prend la première pizza
-        nextPizza = this.pizzas[0];
-      }
-      this.selectedPizza = nextPizza;
-    }
-  }
-
-  addPizza(input: HTMLInputElement): void {
-    console.log(input);
-    if (!input.value.trim()) return;
-
-    this.pizzaService.create(input.value, 13).subscribe(
-      pizza => {
-        this.pizzas.push(pizza);
-        input.value = '';
-      }
-    );
-  }
-
-  deletePizza(pizza: Pizza, event: Event): void {
-    // Empêche le clic de se propager jusqu'aux parents
-    event.stopPropagation();
-
-    // debugger; // Pour un debug plus puissant que le console.log
-
-    // Après le delete, on va devoir mettre à jour notre tableau.
-    // Plusieurs solutions :
-    // - Filtrer le tableau en gardant toutes les pizzas sauf celle supprimée
-    // - Recharger les données de l'API
-    // - Ou modifier le fake interceptor (splice au lieu de filter)
-    this.pizzaService.delete(pizza).subscribe(
-      () => this.pizzas = this.pizzas.filter(p => p.id !== pizza.id)
-    );
+    );    
   }
 
   incrementTotal(value: number): void {
     this.total += value;
-  }
-
-  addIngredientToSelectedPizza(ingredient: Ingredient): void {
-    if (this.selectedPizza) {
-      this.selectedPizza.ingredient = ingredient;
-    }
   }
 }
