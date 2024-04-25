@@ -1,1 +1,17 @@
-<p>pizza-single-page works!</p>
+<div *ngIf="pizza">
+    <div class="row">
+        <div class="col-lg-6">
+            <img [src]="pizza.image" [alt]="pizza.name">
+        </div>
+        <div class="col-lg-6">
+            <h1>{{ pizza.name }}</h1>
+            <p>{{ pizza.price }}</p>
+
+            <button [routerLink]="['/pizzas', 1]">Pizza 1</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!pizza">
+    On essaye de chercher la pizza sur l'API...
+</div>

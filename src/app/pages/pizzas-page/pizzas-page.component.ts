@@ -7,11 +7,17 @@ import { finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PizzaComponent } from '../../pizza/pizza.component';
 import { IngredientListComponent } from '../../ingredient-list/ingredient-list.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pizzas-page',
   standalone: true,
-  imports: [CommonModule, PizzaComponent, IngredientListComponent],
+  imports: [
+    CommonModule,
+    PizzaComponent,
+    IngredientListComponent,
+    RouterLink,
+  ],
   templateUrl: './pizzas-page.component.html',
   styleUrl: './pizzas-page.component.scss'
 })

@@ -60,7 +60,9 @@ export const fakeInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next) 
   }
 
   if (url.match(/\/api\/pizzas\/\d+/) && method === 'GET') {
-    return response(pizzas.find(p => p.id === idFromUrl()));
+    const pizza = pizzas.find(p => p.id === idFromUrl());
+
+    return response(pizza, pizza ? 200 : 404);
   } else if (url.includes('/api/pizzas') && method === 'GET') {
     if (!isLogged()) {
       // return response('Unauthorized', 401);
@@ -73,7 +75,7 @@ export const fakeInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next) 
 
     syncStorage();
 
-    return response(pizza);
+    return response(pizza, pizza ? 200 : 404);
   } else if (url.match(/\/api\/pizzas\/\d+/) && method === 'DELETE') {
     pizzas = pizzas.filter(p => p.id !== idFromUrl());
     

@@ -14,6 +14,10 @@
       <h2>{{ pizza.id }}: {{ pizza.name }} {{ i }}</h2>
       <img class="img-fluid w-100" [src]="pizza.image" [alt]="pizza.name">
       <button class="btn btn-danger" (click)="deletePizza(pizza, $event)">X</button>
+      <a [routerLink]="['/pizzas', pizza.id]"
+        class="btn btn-primary ms-3">
+        Voir
+      </a>
     </div>
   </ng-container>
 </div>
