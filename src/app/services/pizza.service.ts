@@ -17,33 +17,35 @@ export class PizzaService {
   // - /api/pizzas => POST
   // - /api/pizzas/1 => PUT
   // - /api/pizzas/1 => DELETE
-  getPizzas(): Promise<Pizza[]> {
-    return lastValueFrom(this.http.get<Pizza[]>('https://monapi.com/api/pizzas'));
+  getPizzas(): Observable<Pizza[]> {
+    return this.http.get<Pizza[]>('https://monapi.com/api/pizzas');
   }
 
-  getPizza(id: number): Promise<Pizza> {
-    return lastValueFrom(this.http.get<Pizza>(`https://monapi.com/api/pizzas/${id}`));
+  getPizza(id: number): Observable<Pizza> {
+    return this.http.get<Pizza>(`https://monapi.com/api/pizzas/${id}`);
   }
 
-  update(pizza: Pizza): Promise<Pizza> {
-    return lastValueFrom(this.http.put<Pizza>(`https://monapi.com/api/pizzas/${pizza.id}`, pizza));
+  update(pizza: Pizza): Observable<Pizza> {
+    return this.http.put<Pizza>(`https://monapi.com/api/pizzas/${pizza.id}`, pizza);
   }
 
-  delete(pizza: Pizza): Promise<void> {
-    return lastValueFrom(this.http.delete<void>(`https://monapi.com/api/pizzas/${pizza.id}`));
+  delete(pizza: Pizza): Observable<void> {
+    return this.http.delete<void>(`https://monapi.com/api/pizzas/${pizza.id}`);
   }
 
-  create(name: string, price: number = 10): Promise<Pizza> {
-    return lastValueFrom(this.http.post<Pizza>(`https://monapi.com/api/pizzas`, { name, price, image: '/assets/pizzas/reine.jpg' }));
+  create(name: string, price: number = 10): Observable<Pizza> {
+    return this.http.post<Pizza>(`https://monapi.com/api/pizzas`, { name, price, image: '/assets/pizzas/reine.jpg' });
   }
 
   search(value: string): Observable<any> {
-    return this.http.get(`https://jsonplaceholder.typicode.com/users?q=${value}`);
+    return this.http.get(`https://monapi.com/api/pizzas?q=${value}`);
   }
 
   getPizzasSlowly(): Promise<Pizza[]> {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(this.getPizzas()), 1000);
+      setTimeout(() => resolve(
+        lastValueFrom(this.getPizzas())
+      ), 1000);
     })
   }
 }

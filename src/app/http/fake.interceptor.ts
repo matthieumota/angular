@@ -43,15 +43,30 @@ export const fakeInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next) 
     return parseInt(parts[parts.length - 1]);
   }
   const isLogged = () => headers.get('Authorization') === 'Bearer abc-123';
+  const queryString = (key?: any) => {
+    const params = url.split('?');
 
-  if (url.endsWith('/api/pizzas') && method === 'GET') {
+    if (params.length > 1) {
+      const queryString: any = params[params.length - 1].split('&').reduce((o, param) => {
+        const [key, value] = param.split('=');
+
+        return { ...o, [key]: value };
+      }, {});
+
+      return key ? queryString[key] : queryString;
+    }
+
+    return '';
+  }
+
+  if (url.match(/\/api\/pizzas\/\d+/) && method === 'GET') {
+    return response(pizzas.find(p => p.id === idFromUrl()));
+  } else if (url.includes('/api/pizzas') && method === 'GET') {
     if (!isLogged()) {
       // return response('Unauthorized', 401);
     }
 
-    return response(pizzas);
-  } else if (url.match(/\/api\/pizzas\/\d+/) && method === 'GET') {
-    return response(pizzas.find(p => p.id === idFromUrl()));
+    return response(pizzas.filter(p => p.name.toLowerCase().includes(queryString('q'))));
   } else if (url.match(/\/api\/pizzas\/\d+/) && method === 'PUT') {
     let pizza = pizzas.find(p => p.id === idFromUrl());
     pizza = { ...pizza, ...body };

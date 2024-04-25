@@ -25,7 +25,7 @@ export class PizzaComponent implements OnChanges {
 
     // Idéalement, on pourrait n'avoir que l'id dans le @Input
     // et avoir la pizza récupérée dans l'api en propriété
-    this.pizzaService.getPizza(this.pizza.id).then(
+    this.pizzaService.getPizza(this.pizza.id).subscribe(
       pizza => this.pizza = pizza
     );
   }
@@ -33,7 +33,7 @@ export class PizzaComponent implements OnChanges {
   save() {
     this.loading = true;
 
-    this.pizzaService.update(this.pizza!).then(() => {
+    this.pizzaService.update(this.pizza!).subscribe(() => {
       this.loading = false;
       this.cancel();
     });

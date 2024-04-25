@@ -15,6 +15,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './services/message.service';
 import { PizzaModule, TotoService } from './modules/pizza/pizza.module';
 import { PizzaSearchComponent } from './pizza-search/pizza-search.component';
+import { finalize } from 'rxjs';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
@@ -75,9 +76,18 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     // Ici, on va attendre le résultat de la promesse
-    this.pizzaService.getPizzas().then(
-      pizzas => this.pizzas = pizzas
-    ).finally(() => this.loading = false);
+    // this.pizzaService.getPizzas().subscribe(pizzas => {
+    //   this.pizzas = pizzas;
+    //   this.loading = false;
+    // });
+
+    this.pizzaService.getPizzas().pipe(
+      // Exécute le callback quoi qu'il arrive après le next ou l'error
+      finalize(() => this.loading = false)
+    ).subscribe({
+      next: pizzas => this.pizzas = pizzas,
+      error: (error) => console.log(error)
+    });
   }
 
   onSelect(pizza: Pizza): void {
@@ -122,7 +132,7 @@ export class AppComponent implements OnInit {
     console.log(input);
     if (!input.value.trim()) return;
 
-    this.pizzaService.create(input.value, 13).then(
+    this.pizzaService.create(input.value, 13).subscribe(
       pizza => {
         this.pizzas.push(pizza);
         input.value = '';
@@ -141,7 +151,7 @@ export class AppComponent implements OnInit {
     // - Filtrer le tableau en gardant toutes les pizzas sauf celle supprimée
     // - Recharger les données de l'API
     // - Ou modifier le fake interceptor (splice au lieu de filter)
-    this.pizzaService.delete(pizza).then(
+    this.pizzaService.delete(pizza).subscribe(
       () => this.pizzas = this.pizzas.filter(p => p.id !== pizza.id)
     );
   }
