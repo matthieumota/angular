@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { PizzaService } from '../../services/pizza.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { ForbiddenNameDirective } from '../../directives/forbidden-name.directive';
 
 @Component({
   selector: 'app-pizza-add-page',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ForbiddenNameDirective],
   templateUrl: './pizza-add-page.component.html',
   styleUrl: './pizza-add-page.component.scss'
 })

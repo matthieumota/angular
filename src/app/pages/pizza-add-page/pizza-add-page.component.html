@@ -3,12 +3,16 @@
         <label for="name">Nom</label>
         <input name="name" id="name" [(ngModel)]="pizza.name" class="form-control"
             [class.is-invalid]="name.dirty && name.invalid"
-            required minlength="3" #name="ngModel">
+            required minlength="3" [forbiddenName]="['toto', 'titi']"
+            #name="ngModel">
         <div class="invalid-feedback" *ngIf="name.dirty && name.hasError('required')">
             Le nom de la pizza est obligatoire
         </div>
         <div class="invalid-feedback" *ngIf="name.dirty && name.hasError('minlength')">
             Le nom de la pizza doit faire 3 caractères
+        </div>
+        <div class="invalid-feedback" *ngIf="name.dirty && name.hasError('forbidden')">
+            Le nom de la pizza est interdit ({{ name.getError('forbidden') }})
         </div>
     </div>
     <div class="mb-3">
