@@ -1,11 +1,7 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { CounterComponent } from './counter/counter.component';
-import { AuthorComponent } from './author/author.component';
-import { User } from './models/user';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
-import { TwowayComponent } from './twoway/twoway.component';
 import { MessagesComponent } from './messages/messages.component';
 import { PizzaModule, TotoService } from './modules/pizza/pizza.module';
 import { PizzaSearchComponent } from './pizza-search/pizza-search.component';
@@ -14,10 +10,7 @@ import { RouterOutlet } from '@angular/router';
 
 // Toujours possible de mettre ce tableau dans un fichier commun qu'on importe dans les composants...
 export const exercices = [
-  CounterComponent,
-  AuthorComponent,
   MenuComponent,
-  TwowayComponent,
   MessagesComponent,
   PizzaSearchComponent
 ];
@@ -39,15 +32,6 @@ export const exercices = [
 })
 export class AppComponent implements OnInit {
   title: string = 'pizzaparty';
-
-  user: User = new User('Mota', 'Fiorella', '2019-12-31', 'https://i.pravatar.cc/150?u=fiorella');
-  dates: Array<string> = User.dates();
-
-  numbers: number[] = [1, 2, 3];
-  letters: string[] = ['a', 'b', 'c'];
-
-  // Le total pour les compteurs
-  total: number = 20; // 5 + 0 + 15 par rapport à mes compteurs
 
   obs$!: Observable<any>;
 
@@ -108,9 +92,5 @@ export class AppComponent implements OnInit {
       // find(c => c.color === 'red'),
       map(c => c.color),
     );    
-  }
-
-  incrementTotal(value: number): void {
-    this.total += value;
   }
 }

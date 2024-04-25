@@ -1,0 +1,22 @@
+<h1>Exercices Composants</h1>
+
+<app-counter [value]="5" (incremented)="incrementTotal($event)"></app-counter>
+<app-counter (incremented)="incrementTotal($event)"></app-counter>
+<app-counter [value]="15" (incremented)="incrementTotal($event)"></app-counter>
+<p>Le compteur en dessous est celui en two way, il est synchro sur le total, ce qui n'a pas vraiment d'intérêt</p>
+<app-counter [(value)]="total"></app-counter>
+<p>Le total des compteurs est: {{ total }}</p>
+
+<app-author [author]="user"></app-author>
+<!-- Je préfére mettre le select en dehors du composant
+  pour pouvoir modifier directement la valeur passée en Input.
+  En effet, modifier le Input directement pourrait entrainer
+  une incohérence des données pour le parent. On pourra régler le soucis
+  avec le Output. Pour la date, je peux aussi montrer le ngModelChange -->
+<select [ngModel]="user.birthday" (ngModelChange)="user.birthday = $event">
+  <option *ngFor="let year of dates" [value]="year">{{ year }}</option>
+</select>
+
+<p>Le two way binding</p>
+<!-- [value]="title" (valueChange)="title = $event" -->
+<app-twoway [(value)]="title" [(array)]="numbers"></app-twoway>
