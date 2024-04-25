@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">{{ title }}</a>
+    <a class="navbar-brand" routerLink="/" (click)="isCollapsed = false">{{ title }}</a>
     <button class="navbar-toggler" type="button" (click)="toggleCollapseNavbar()">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" [class.show]="isCollapsed">
       <div class="navbar-nav">
-        <a class="nav-link active" routerLink="/">Accueil</a>
-        <a class="nav-link" routerLink="/pizzas">Pizzas</a>
-        <a class="nav-link" routerLink="/exercices">Exercices</a>
-        <a class="nav-link" routerLink="/observables">Observables</a>
+        <a class="nav-link active" routerLink="/" (click)="isCollapsed = false">Accueil</a>
+        <a class="nav-link" routerLink="/pizzas" (click)="isCollapsed = false">Pizzas</a>
+        <a class="nav-link" routerLink="/exercices" (click)="isCollapsed = false">Exercices</a>
+        <a class="nav-link" routerLink="/observables" (click)="isCollapsed = false">Observables</a>
       </div>
     </div>
   </div>
