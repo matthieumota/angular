@@ -9,6 +9,7 @@ export class User {
 
     // Solution ok mais on peut faire mieux avec les Pipes...
     get age(): number {
+        console.log('COMPUTED');
         const today = new Date();
         const birthday = new Date(this.birthday);
         const age = today.getFullYear() - birthday.getFullYear();
