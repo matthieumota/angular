@@ -83,6 +83,10 @@ export const fakeInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next) 
 
     return response();
   } else if (url.endsWith('/api/pizzas') && method === 'POST') {
+    if (!isLogged()) {
+      return response('Unauthorized', 401);
+    }
+
     let pizza = body;
 
     pizza.id = pizzas.length ? Math.max(...pizzas.map(p => p.id)) + 1 : 1;

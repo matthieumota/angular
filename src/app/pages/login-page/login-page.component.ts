@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ExistingDirective } from '../../directives/existing.directive';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -24,7 +25,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -37,10 +39,12 @@ export class LoginPageComponent implements OnInit {
   login(form: any) {
     this.responseFromBackend = this.errorsFromBackend = null;
 
-    this.http.post(`https://monapi.com/login`, this.user)
+    this.http.post<any>(`https://monapi.com/login`, this.user)
       .subscribe({
         next: (response) => {
           this.responseFromBackend = response;
+          const { name, token } = response;
+          this.auth.login(name, token);
 
           setTimeout(() => {
             this.router.navigate(['/pizzas/nouvelle']);

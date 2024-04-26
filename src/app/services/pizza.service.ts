@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pizza } from '../models/pizza';
 import { HttpClient } from '@angular/common/http';
 import { Observable, lastValueFrom } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,11 @@ export class PizzaService {
   }
 
   create(name: string, price: number = 10): Observable<Pizza> {
-    return this.http.post<Pizza>(`https://monapi.com/api/pizzas`, { name, price, image: '/assets/pizzas/reine.jpg' });
+    return this.http.post<Pizza>(
+      `https://monapi.com/api/pizzas`,
+      { name, price, image: '/assets/pizzas/reine.jpg' },
+      { headers: { Authorization: `Bearer ${AuthService.token()}` } } // Le Bearer protège l'API (on devrait le récupérer sur notre service)
+    );
   }
 
   search(value: string): Observable<any> {

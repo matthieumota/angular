@@ -12,6 +12,14 @@
         <a class="nav-link" routerLink="/observables" (click)="isCollapsed = false">Observables</a>
         <a class="nav-link" routerLink="/pizzas/nouvelle" (click)="isCollapsed = false">Nouvelle pizza</a>
         <a class="nav-link" routerLink="/login" (click)="isCollapsed = false">Connexion</a>
+
+        <!-- <button (click)="authService.login('Fiorella')" *ngIf="!(authService.logged() | async)">
+          Login
+        </button> -->
+        <div *ngIf="authService.logged() | async">
+          {{ (authService.user | async)?.username }}
+          <button (click)="authService.logout()">Logout</button>
+        </div>
       </div>
     </div>
   </div>
