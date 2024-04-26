@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Pizza } from '../models/pizza';
 import { HttpClient } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, delay, lastValueFrom } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
