@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PizzaAddPageComponent } from './pizza-add-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PizzaAddPageComponent', () => {
   let component: PizzaAddPageComponent;
@@ -8,7 +9,7 @@ describe('PizzaAddPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PizzaAddPageComponent]
+      imports: [PizzaAddPageComponent, HttpClientTestingModule]
     })
     .compileComponents();
     

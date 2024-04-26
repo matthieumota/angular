@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PizzaSinglePageComponent } from './pizza-single-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 
 describe('PizzaSinglePageComponent', () => {
   let component: PizzaSinglePageComponent;
@@ -8,7 +10,7 @@ describe('PizzaSinglePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PizzaSinglePageComponent]
+      imports: [PizzaSinglePageComponent, HttpClientTestingModule, RouterModule.forRoot([])]
     })
     .compileComponents();
     

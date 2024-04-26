@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ObservablesPageComponent } from './observables-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ObservablesPageComponent', () => {
   let component: ObservablesPageComponent;
@@ -8,7 +9,7 @@ describe('ObservablesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ObservablesPageComponent]
+      imports: [ObservablesPageComponent, HttpClientTestingModule]
     })
     .compileComponents();
     
