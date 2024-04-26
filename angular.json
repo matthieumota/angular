@@ -82,6 +82,7 @@
           "options": {
             "polyfills": [
               "zone.js",
+              "zone.js/plugins/zone-patch-rxjs-fake-async",
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",

@@ -5,10 +5,6 @@ import { PIZZAS, fakeInterceptor } from '../http/fake.interceptor';
 import { Observable, delay } from 'rxjs';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-// (window as any)['__zone_symbol__fakeAsyncPatchLock'] = true;
-// import 'zone.js/testing';
-// import 'zone.js/plugins/zone-patch-rxjs-fake-async';
-
 class FakeInterceptorClass implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return fakeInterceptor(req, next.handle);
