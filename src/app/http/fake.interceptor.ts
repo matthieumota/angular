@@ -103,6 +103,8 @@ export const fakeInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next) 
       ...user,
       token: 'abc-123',
     });
+  } else if (url.includes('/api/users') && method === 'GET') {
+    return response(users.filter(u => u.name.toLowerCase().includes(queryString('q'))));
   }
 
   return next(req);

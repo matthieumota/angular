@@ -1,0 +1,41 @@
+<form class="w-50 mx-auto" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+    <h1 class="h3 mb-3 fw-normal">Connexion</h1>
+
+    <div class="form-floating">
+        <input type="text" class="form-control" id="login" name="login" placeholder="Login" [(ngModel)]="user.name" #loginField="ngModel" required existing [ngModelOptions]="{ updateOn: 'blur' }">
+        <div class="spinner-border position-absolute" [ngStyle]="{ width: '20px', height: '20px', top: '20px', right: '10px' }" *ngIf="loginField.pending"></div>
+        <label for="login">Login</label>
+    </div>
+
+    <div class="form-floating mb-3" [class.is-invalid]="(loginForm.dirty || comesFromUrl) && (loginForm.invalid || errorsFromBackend)">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" [(ngModel)]="user.password" #password="ngModel" required>
+        <label for="password">Mot de passe</label>
+    </div>
+
+    <div class="invalid-feedback mb-3" *ngIf="loginField.dirty && loginField.hasError('required')">
+        Le login est requis
+    </div>
+
+    <div class="invalid-feedback mb-3" *ngIf="(loginField.dirty || comesFromUrl) && loginField.hasError('existing')">
+        Le login n'existe pas
+    </div>
+
+    <div class="invalid-feedback mb-3" *ngIf="password.dirty && password.invalid">
+        Le mot de passe est requis
+    </div>
+
+    <div class="invalid-feedback mb-3" *ngIf="errorsFromBackend">
+        {{ errorsFromBackend }}
+    </div>
+
+    <div class="mb-3" *ngIf="responseFromBackend">
+        {{ responseFromBackend | json }}
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" [disabled]="loginForm.invalid || loginForm.pending">
+        Connexion
+    </button>
+
+    <button routerLink="/login" [queryParams]="{name: 'toto'}" type="button">Pré remplir avec toto</button>
+    <button routerLink="/login" [queryParams]="{name: 'titi'}" type="button">Pré remplir avec titi</button>
+</form>

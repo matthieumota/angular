@@ -5,6 +5,7 @@ import { ExercicesPageComponent } from './pages/exercices-page/exercices-page.co
 import { ObservablesPageComponent } from './pages/observables-page/observables-page.component';
 import { PizzaSinglePageComponent } from './pages/pizza-single-page/pizza-single-page.component';
 import { PizzaAddPageComponent } from './pages/pizza-add-page/pizza-add-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
     { path: 'pizzas/:id', component: PizzaSinglePageComponent },
     { path: 'exercices', component: ExercicesPageComponent },
     { path: 'observables', component: ObservablesPageComponent },
+    { path: 'login', component: LoginPageComponent },
 ];
