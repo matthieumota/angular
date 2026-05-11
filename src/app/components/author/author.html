@@ -1,0 +1,27 @@
+<div class="author">
+  @if (showAvatar()) {
+    <img [src]="user().avatar" [alt]="user().firstName + ' ' + user().lastName" />
+  }
+
+  <div class="author-info">
+    <h2>{{ user().firstName }} {{ user().lastName }}</h2>
+    <p>Âge : {{ age() }} ans</p>
+
+    @if (isMajor()) {
+      <p>Vous êtes majeur</p>
+    }
+
+    <label>
+      Année de naissance :
+      <select [(ngModel)]="birthYear">
+        @for (year of years; track year) {
+          <option [value]="year">{{ year }}</option>
+        }
+      </select>
+    </label>
+
+    <button (click)="toggleAvatar()">
+      {{ showAvatar() ? 'Masquer' : 'Afficher' }} l'avatar
+    </button>
+  </div>
+</div>

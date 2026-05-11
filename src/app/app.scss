@@ -5,7 +5,7 @@ h1 {
 }
 
 :host {
-  color: $blue;
+  color: inherit;
 }
 
 .pizzas li:hover {

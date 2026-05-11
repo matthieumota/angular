@@ -1,5 +1,13 @@
 <h1>{{ title }}</h1>
 
+<div>
+  <p>Prop classique : {{ withoutSignal }}</p>
+  <p>Signal : {{ withSignal() }}</p>
+</div>
+
+<app-counter [value]="5" />
+<app-author [user]="author" />
+
 <app-pizza-selected [selectedPizza]="selectedPizza()" />
 
 <ul class="pizzas">

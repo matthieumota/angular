@@ -1,0 +1,7 @@
+<div class="counter">
+  <button (click)="decrement()" [disabled]="count() === 0">-</button>
+  <span>{{ count() }}</span>
+  @if (count() < 10) {
+    <button (click)="increment()">+</button>
+  }
+</div>
