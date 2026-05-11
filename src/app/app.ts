@@ -1,12 +1,32 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Pizza } from './models/pizza';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { PizzaSelected } from './components/pizza-selected/pizza-selected';
+
+const PIZZAS: Pizza[] = [
+  { id: 1, name: 'Reine', price: 12, image: '/assets/pizzas/reine.jpg' },
+  { id: 2, name: '4 fromages', price: 13, image: '/assets/pizzas/4-fromages.jpg' },
+  { id: 3, name: 'Orientale', price: 11, image: '/assets/pizzas/orientale.jpg' },
+  { id: 4, name: 'Cannibale', price: 9, image: '/assets/pizzas/cannibale.jpg' }
+];
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [FormsModule, CommonModule, PizzaSelected],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('pizzaparty');
+  protected title: string = 'Pizza Party';
+  protected pizza: Pizza = new Pizza(1, 'Reine', 12, '/assets/pizzas/reine.jpg');
+  // Utilisation d'un signal pour la pizza sélectionnée (et renommage de la variable pour éviter les conflits)
+  protected selectedPizza = signal<Pizza | null>(null);
+  protected pizzas: Array<Pizza> | Pizza[] = PIZZAS;
+
+  onSelect(pizza: Pizza): void {
+    console.log(pizza);
+    this.pizza = { ...pizza }; // Crée une nouvelle instance de pizza pour éviter les problèmes de référence
+    this.selectedPizza.set({ ...pizza });
+  }
 }

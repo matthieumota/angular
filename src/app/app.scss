@@ -1,0 +1,17 @@
+$blue: blue;
+
+h1 {
+  color: $blue;
+}
+
+:host {
+  color: $blue;
+}
+
+.pizzas li:hover {
+  cursor: pointer;
+}
+
+.pizzas .selected {
+  background-color: lightgray;
+}

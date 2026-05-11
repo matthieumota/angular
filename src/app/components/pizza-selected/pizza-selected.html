@@ -1,0 +1,10 @@
+@if (selectedPizza(); as selectedPizza) {
+  <h2>{{ selectedPizza.name }}</h2>
+  <!-- <input [value]="selectedPizza.name" (input)="selectedPizza.name = $event.target.value">
+  <input [ngModel]="selectedPizza.name" (ngModelChange)="selectedPizza.name = $event" placeholder="name">
+  <input [ngModel]="selectedPizza.name" placeholder="name">
+  <input (input)="selectedPizza.name = $event.target.value" placeholder="name"> -->
+  <input [(ngModel)]="selectedPizza.name" placeholder="name">
+  <p>Prix: {{ selectedPizza.price }}€</p>
+  <img [src]="selectedPizza.image" [alt]="selectedPizza.name" (click)="selectedPizza.name = 'test'" />
+}
