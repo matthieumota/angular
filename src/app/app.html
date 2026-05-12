@@ -26,3 +26,10 @@
     </li>
   }
 </ul>
+
+<ul>
+  {{ pizzas$ | async | json }}
+  @for (pizza of pizzas$ | async; track pizza.id) {
+    <li>{{ pizza.name }}</li>
+  }
+</ul>

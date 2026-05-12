@@ -7,6 +7,7 @@ import { Counter } from './components/counter/counter';
 import { Author } from './components/author/author';
 import { User } from './models/user';
 import { PizzaRepository } from './services/pizza-repository';
+import { delay, map, Observable, repeat } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +26,18 @@ export class App implements OnInit {
   protected withSignal = signal(0);
 
   pizzaRepository = inject(PizzaRepository);
+  protected pizzas$!: Observable<Pizza[]>;
 
   ngOnInit() {
-    this.pizzaRepository.getPizzas().then(pizzas => {
-      this.pizzas.set(pizzas);
+    this.pizzas$ = this.pizzaRepository.getPizzas();
+
+    this.pizzaRepository.getPizzas().pipe(
+      delay(500),
+      // repeat(3),
+      map(pizzas => pizzas.map(pizza => ({ ...pizza, name: `${pizza.name} (${pizza.price * 1.2}€)` })))
+    ).subscribe(pizzas => {
+      console.log('Pizzas reçues :', pizzas);
+      this.pizzas.update(current => [...current, ...pizzas]);
     });
 
     // setInterval(() => {
