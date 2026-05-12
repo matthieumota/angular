@@ -18,11 +18,25 @@
   @for (pizza of pizzas(); track pizza.id) {
     <li
       [class.selected]="pizza.id === selectedPizza()?.id"
-      [ngClass]="{ 'a b c': true, d: true }"
+      [ngClass]="{ 'a b c': true, d: true, 'in-cart': cart.itemIds().has(pizza.id) }"
       (click)="onSelect(pizza)"
     >
       <span>{{ pizza.id }}: {{ pizza.name }}</span>
       <img [src]="pizza.image" [alt]="pizza.name" />
+      <button (click)="addToCart(pizza, $event)">Ajouter au panier</button>
+    </li>
+  }
+</ul>
+
+<p>Total panier: {{ cart.total() }}€</p>
+<p>Nombre d'articles: {{ cart.items().length }}</p>
+<button (click)="cart.clear()" [disabled]="cart.items().length === 0">Vider le panier</button>
+
+<ul>
+  @for (item of cart.items(); track item.id) {
+    <li>
+      <p>{{ item.name }} x 1</p>
+      <button (click)="cart.remove(item)">Supprimer</button>
     </li>
   }
 </ul>

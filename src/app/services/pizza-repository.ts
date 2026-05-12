@@ -20,4 +20,8 @@ export class PizzaRepository {
     return this.http.get<Pizza[]>('/api/pizzas');
     // return new Promise(resolve => setTimeout(() => resolve(PIZZAS), 1000)); // Simule un délai de 1 seconde sur une API
   }
+
+  getPizza(id: number): Observable<Pizza> {
+    return this.http.get<Pizza>(`/api/pizzas/${id}`);
+  }
 }

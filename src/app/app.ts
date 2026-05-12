@@ -8,6 +8,7 @@ import { Author } from './components/author/author';
 import { User } from './models/user';
 import { PizzaRepository } from './services/pizza-repository';
 import { delay, map, Observable, repeat } from 'rxjs';
+import { Cart } from './services/cart';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,8 @@ export class App implements OnInit {
 
   pizzaRepository = inject(PizzaRepository);
   protected pizzas$!: Observable<Pizza[]>;
+
+  cart = inject(Cart);
 
   ngOnInit() {
     this.pizzas$ = this.pizzaRepository.getPizzas();
@@ -51,11 +54,21 @@ export class App implements OnInit {
   onSelect(pizza: Pizza): void {
     console.log(pizza);
     this.pizza = { ...pizza }; // Crée une nouvelle instance de pizza pour éviter les problèmes de référence
-    this.selectedPizza.set({ ...pizza });
+    // this.selectedPizza.set({ ...pizza });
+
+    this.pizzaRepository.getPizza(pizza.id).subscribe(pizza => {
+      console.log('Pizza reçue :', pizza);
+      this.selectedPizza.set({ ...pizza });
+    });
   }
 
   unSelect(name: string): void {
     alert(`Pizza ${name} annulée !`);
     this.selectedPizza.set(null);
+  }
+
+  addToCart(pizza: Pizza, event: Event): void {
+    event.stopPropagation();
+    this.cart.add(pizza);
   }
 }
