@@ -13,6 +13,7 @@
 
     <label>
       Année de naissance :
+      {{ user() | json }}
       <select [(ngModel)]="birthYear">
         @for (year of years; track year) {
           <option [value]="year">{{ year }}</option>
