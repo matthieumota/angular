@@ -19,7 +19,7 @@ export class App implements OnInit {
   protected pizza: Pizza = new Pizza(1, 'Reine', 12, '/assets/pizzas/reine.jpg');
   // Utilisation d'un signal pour la pizza sélectionnée (et renommage de la variable pour éviter les conflits)
   protected selectedPizza = signal<Pizza | null>(null);
-  protected pizzas: Array<Pizza> | Pizza[] = [];
+  protected pizzas = signal<Pizza[]>([]);
 
   protected withoutSignal: number = 0;
   protected withSignal = signal(0);
@@ -28,13 +28,13 @@ export class App implements OnInit {
 
   ngOnInit() {
     this.pizzaRepository.getPizzas().then(pizzas => {
-      this.pizzas = pizzas;
+      this.pizzas.set(pizzas);
     });
 
-    setInterval(() => {
-      this.withoutSignal++;
-      this.withSignal.update(n => n + 1);
-    }, 1000);
+    // setInterval(() => {
+    //   this.withoutSignal++;
+    //   this.withSignal.update(n => n + 1);
+    // }, 1000);
   }
 
   protected author = new User('Jean', 'Dupont', '1990-06-15', 'https://i.pravatar.cc/100');
