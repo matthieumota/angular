@@ -5,7 +5,8 @@
   <p>Signal : {{ withSignal() }}</p>
 </div>
 
-<app-counter [value]="5" />
+<app-counter />
+<app-counter [initialValue]="5" />
 <app-author [user]="author" />
 
 <app-pizza-selected [selectedPizza]="selectedPizza()" />

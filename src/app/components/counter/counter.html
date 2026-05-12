@@ -1,7 +1,8 @@
 <div class="counter">
-  <button (click)="decrement()" [disabled]="count() === 0">-</button>
-  <span>{{ count() }}</span>
-  @if (count() < 10) {
+  <p>Le compteur a démarré à {{ initialValue() }}</p>
+  <button (click)="decrement()" [disabled]="realValue() === 0">-</button>
+  <span>{{ realValue() }}</span>
+  @if (realValue() < 10) {
     <button (click)="increment()">+</button>
   }
 </div>
