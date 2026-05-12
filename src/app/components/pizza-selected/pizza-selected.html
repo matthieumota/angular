@@ -7,4 +7,12 @@
   <input [(ngModel)]="selectedPizza.name" placeholder="name">
   <p>Prix: {{ selectedPizza.price }}€</p>
   <img [src]="selectedPizza.image" [alt]="selectedPizza.name" (click)="selectedPizza.name = 'test'" />
+
+  <button (click)="cancelled.emit(selectedPizza.name)">
+    Annuler
+  </button>
+
+  <button (click)="this.selectedPizza.set(null)">
+    Annuler (sans event)
+  </button>
 }

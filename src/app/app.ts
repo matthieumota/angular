@@ -44,4 +44,9 @@ export class App implements OnInit {
     this.pizza = { ...pizza }; // Crée une nouvelle instance de pizza pour éviter les problèmes de référence
     this.selectedPizza.set({ ...pizza });
   }
+
+  unSelect(name: string): void {
+    alert(`Pizza ${name} annulée !`);
+    this.selectedPizza.set(null);
+  }
 }

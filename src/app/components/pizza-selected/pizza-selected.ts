@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { Pizza } from '../../models/pizza';
 import { FormsModule } from '@angular/forms';
 
@@ -9,5 +9,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './pizza-selected.scss',
 })
 export class PizzaSelected {
-  selectedPizza = input<Pizza | null>();
+  // Propriétés
+  selectedPizza = model<Pizza | null>();
+  // Evénements
+  cancelled = output<string>();
 }
