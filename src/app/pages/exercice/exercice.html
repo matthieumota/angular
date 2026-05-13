@@ -1,1 +1,8 @@
-<p>exercice works!</p>
+<div>
+  <p>Prop classique : {{ withoutSignal }}</p>
+  <p>Signal : {{ withSignal() }}</p>
+</div>
+
+<app-counter />
+<app-counter [initialValue]="5" />
+<app-author [user]="author" />

@@ -1,25 +1,3 @@
 <h1>{{ title }}</h1>
 
 <router-outlet />
-
-<div>
-  <p>Prop classique : {{ withoutSignal }}</p>
-  <p>Signal : {{ withSignal() }}</p>
-</div>
-
-<app-counter />
-<app-counter [initialValue]="5" />
-<app-author [user]="author" />
-
-<p>Total panier: {{ cart.total() }}€</p>
-<p>Nombre d'articles: {{ cart.count() }}</p>
-<button (click)="cart.clear()" [disabled]="cart.count() === 0">Vider le panier</button>
-
-<ul>
-  @for (item of cart.items(); track item.pizza.id) {
-    <li>
-      <p>{{ item.pizza.name }} x {{ item.quantity }}</p>
-      <button (click)="cart.remove(item.pizza)">Supprimer</button>
-    </li>
-  }
-</ul>
