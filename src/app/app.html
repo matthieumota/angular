@@ -1,6 +1,6 @@
-<router-outlet />
-
 <h1>{{ title }}</h1>
+
+<router-outlet />
 
 <div>
   <p>Prop classique : {{ withoutSignal }}</p>
@@ -10,25 +10,6 @@
 <app-counter />
 <app-counter [initialValue]="5" />
 <app-author [user]="author" />
-
-<app-pizza-selected
-  [(selectedPizza)]="selectedPizza"
-  (cancelled)="unSelect($event)"
-/>
-
-<ul class="pizzas">
-  @for (pizza of pizzas(); track pizza.id) {
-    <li
-      [class.selected]="pizza.id === selectedPizza()?.id"
-      [ngClass]="{ 'a b c': true, d: true, 'in-cart': cart.itemIds().has(pizza.id) }"
-      (click)="onSelect(pizza)"
-    >
-      <span>{{ pizza.id }}: {{ pizza.name }}</span>
-      <img [src]="pizza.image" [alt]="pizza.name" />
-      <button (click)="addToCart(pizza, $event)">Ajouter au panier</button>
-    </li>
-  }
-</ul>
 
 <p>Total panier: {{ cart.total() }}€</p>
 <p>Nombre d'articles: {{ cart.count() }}</p>
@@ -40,12 +21,5 @@
       <p>{{ item.pizza.name }} x {{ item.quantity }}</p>
       <button (click)="cart.remove(item.pizza)">Supprimer</button>
     </li>
-  }
-</ul>
-
-<ul>
-  {{ pizzas$ | async | json }}
-  @for (pizza of pizzas$ | async; track pizza.id) {
-    <li>{{ pizza.name }}</li>
   }
 </ul>

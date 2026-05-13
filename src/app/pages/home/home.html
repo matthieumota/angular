@@ -1,1 +1,25 @@
-<p>home works!</p>
+<app-pizza-selected
+  [(selectedPizza)]="selectedPizza"
+  (cancelled)="unSelect($event)"
+/>
+
+<ul class="pizzas">
+  @for (pizza of pizzas(); track pizza.id) {
+    <li
+      [class.selected]="pizza.id === selectedPizza()?.id"
+      [ngClass]="{ 'a b c': true, d: true, 'in-cart': cart.itemIds().has(pizza.id) }"
+      (click)="onSelect(pizza)"
+    >
+      <span>{{ pizza.id }}: {{ pizza.name }}</span>
+      <img [src]="pizza.image" [alt]="pizza.name" />
+      <button (click)="addToCart(pizza, $event)">Ajouter au panier</button>
+    </li>
+  }
+</ul>
+
+<ul>
+  {{ pizzas$ | async | json }}
+  @for (pizza of pizzas$ | async; track pizza.id) {
+    <li>{{ pizza.name }}</li>
+  }
+</ul>
