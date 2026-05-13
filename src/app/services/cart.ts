@@ -21,19 +21,7 @@ export class Cart {
       total += item.pizza.price * item.quantity;
     }
     return total;
-  })
-
-  constructor() {
-    effect(() => {
-      const items = localStorage.getItem('cart');
-
-      if (items) {
-        this.items.set(JSON.parse(items));
-      }
-
-      localStorage.setItem('cart', JSON.stringify(this.items()));
-    });
-  }
+  });
 
   add(pizza: Pizza) {
     // const a = [1, 2, 3];
