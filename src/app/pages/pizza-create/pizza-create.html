@@ -1,0 +1,26 @@
+<form (ngSubmit)="createPizza(pizzaForm)" #pizzaForm="ngForm">
+  <div>
+    <label for="name">Nom</label>
+    <input type="text" name="name" [(ngModel)]="pizza().name" required minlength="3" #name="ngModel">
+    @if (name.hasError('required') && name.dirty) {
+      <p>Le nom de la pizza est obligatoire</p>
+    }
+    @if (name.hasError('minlength') && name.dirty && name.getError('minlength'); as ml) {
+      <p>
+        Le nom de la pizza doit contenir
+        au moins {{ ml.requiredLength }} caractères
+        (encore {{ ml.requiredLength - ml.actualLength }})
+      </p>
+    }
+  </div>
+
+  <div>
+    <label for="price">Prix</label>
+    <input type="number" name="price" [(ngModel)]="pizza().price" required min="1" #price="ngModel">
+    @if (price.invalid && price.dirty) {
+      <p>Le prix de la pizza doit être supérieur à 1</p>
+    }
+  </div>
+
+  <button [disabled]="pizzaForm.invalid">Créer pizza</button>
+</form>

@@ -23,7 +23,7 @@ export class PizzaDetail {
       switchMap(params => this.pizzaRepository.getPizza(params['id']))
     ).subscribe(pizza => {
       this.loading.set(false);
-      alert('OBSERVABLE EMIT VALUE: ' + JSON.stringify(pizza));
+      // alert('OBSERVABLE EMIT VALUE: ' + JSON.stringify(pizza));
 
       if (!pizza) this.router.navigateByUrl('/')
 

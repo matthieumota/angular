@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Pizza } from '../models/pizza';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, Observable } from 'rxjs';
+import { PizzaDraft } from '../pages/pizza-create/pizza-create';
 
 export const PIZZAS: Pizza[] = [
   { id: 1, name: 'Reine', price: 12, image: '/assets/pizzas/reine.jpg' },
@@ -23,5 +24,9 @@ export class PizzaRepository {
 
   getPizza(id: number): Observable<Pizza> {
     return this.http.get<Pizza>(`/api/pizzas/${id}`);
+  }
+
+  createPizza(pizza: PizzaDraft): Observable<Pizza> {
+    return this.http.post<Pizza>('/api/pizzas', pizza);
   }
 }
