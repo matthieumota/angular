@@ -19,9 +19,11 @@ export class Cart {
   })
 
   add(pizza: Pizza) {
-    const a = [1, 2, 3];
-    a.push(4);
-    const b = [...a, 4];
+    // const a = [1, 2, 3];
+    // a.push(4);
+    // const b = [...a, 4];
+    // this.items().push(pizza);
+    // this.items.set(this.items());
 
     this.items.update((items) => [...items, pizza]);
   }

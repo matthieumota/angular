@@ -58,7 +58,7 @@ export class App implements OnInit {
 
     this.pizzaRepository.getPizza(pizza.id).subscribe(pizza => {
       console.log('Pizza reçue :', pizza);
-      this.selectedPizza.set({ ...pizza });
+      this.selectedPizza.set(pizza);
     });
   }
 

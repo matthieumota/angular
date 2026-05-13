@@ -29,8 +29,8 @@
 </ul>
 
 <p>Total panier: {{ cart.total() }}€</p>
-<p>Nombre d'articles: {{ cart.items().length }}</p>
-<button (click)="cart.clear()" [disabled]="cart.items().length === 0">Vider le panier</button>
+<p>Nombre d'articles: {{ cart.count() }}</p>
+<button (click)="cart.clear()" [disabled]="cart.count() === 0">Vider le panier</button>
 
 <ul>
   @for (item of cart.items(); track item.id) {
