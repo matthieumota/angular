@@ -40,20 +40,11 @@ export class Cart {
   }
 
   remove(pizza: Pizza) {
-    this.items.update((items) => {
-      const item = items.find(item => item.pizza.id === pizza.id);
-      if (!item) return items;
-      if (item.quantity > 1) {
-        return items.map(item => {
-          if (item.pizza.id === pizza.id) {
-            return { ...item, quantity: item.quantity - 1 };
-          }
-          return item;
-        })
-      } else {
-        return items.filter(item => item.pizza.id !== pizza.id);
-      }
-    });
+    this.items.update((items) =>
+      items
+        .map(item => item.pizza.id === pizza.id ? { ...item, quantity: item.quantity - 1 } : item)
+        .filter(item => item.quantity > 0)
+    );
   }
 
   clear() {
