@@ -13,6 +13,7 @@
       <span>{{ pizza.id }}: {{ pizza.name }}</span>
       <img [src]="pizza.image" [alt]="pizza.name" />
       <button (click)="addToCart(pizza, $event)">Ajouter au panier</button>
+      <a [routerLink]="['/pizza', pizza.id]">Voir la pizza</a>
     </li>
   }
 </ul>

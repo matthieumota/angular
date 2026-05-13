@@ -5,10 +5,11 @@ import { PizzaRepository } from '../../services/pizza-repository';
 import { delay, map, Observable } from 'rxjs';
 import { Cart } from '../../services/cart';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, PizzaSelected],
+  imports: [CommonModule, PizzaSelected, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

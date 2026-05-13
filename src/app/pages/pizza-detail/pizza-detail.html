@@ -1,0 +1,7 @@
+@if (loading()) {
+  <p>Loading...</p>
+} @else {
+  <h1>{{ pizza()?.name }}</h1>
+  <p>{{ pizza()?.price }}</p>
+  <a routerLink="/pizza/1">Go to Pizza 1</a>
+}
