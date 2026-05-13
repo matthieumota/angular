@@ -1,19 +1,24 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Pizza } from '../models/pizza';
 
+export type CartItem = {
+  pizza: Pizza;
+  quantity: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class Cart {
-  items = signal<Pizza[]>([]);
-  total = computed(() => this.items().reduce((acc, item) => acc + item.price, 0));
-  count = computed(() => this.items().length);
-  itemIds = computed(() => new Set(this.items().map(item => item.id)));
+  items = signal<CartItem[]>([]);
+  total = computed(() => this.items().reduce((acc, item) => acc + item.pizza.price * item.quantity, 0));
+  count = computed(() => this.items().reduce((acc, item) => acc + item.quantity, 0));
+  itemIds = computed(() => new Set(this.items().map(item => item.pizza.id)));
 
   total2 = computed(() => {
     let total = 0;
     for (const item of this.items()) {
-      total += item.price;
+      total += item.pizza.price * item.quantity;
     }
     return total;
   })
@@ -25,11 +30,30 @@ export class Cart {
     // this.items().push(pizza);
     // this.items.set(this.items());
 
-    this.items.update((items) => [...items, pizza]);
+    this.items.update((items) => {
+      if (!this.itemIds().has(pizza.id)) {
+        return [...items, { pizza, quantity: 1 }]
+      } else {
+        return items.map((item) => item.pizza.id === pizza.id ? { ...item, quantity: item.quantity + 1 } : item);
+      }
+    });
   }
 
   remove(pizza: Pizza) {
-    this.items.update((items) => items.filter((item) => item.id !== pizza.id));
+    this.items.update((items) => {
+      const item = items.find(item => item.pizza.id === pizza.id);
+      if (!item) return items;
+      if (item.quantity > 1) {
+        return items.map(item => {
+          if (item.pizza.id === pizza.id) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        })
+      } else {
+        return items.filter(item => item.pizza.id !== pizza.id);
+      }
+    });
   }
 
   clear() {

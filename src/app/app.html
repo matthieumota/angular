@@ -33,10 +33,10 @@
 <button (click)="cart.clear()" [disabled]="cart.count() === 0">Vider le panier</button>
 
 <ul>
-  @for (item of cart.items(); track item.id) {
+  @for (item of cart.items(); track item.pizza.id) {
     <li>
-      <p>{{ item.name }} x 1</p>
-      <button (click)="cart.remove(item)">Supprimer</button>
+      <p>{{ item.pizza.name }} x {{ item.quantity }}</p>
+      <button (click)="cart.remove(item.pizza)">Supprimer</button>
     </li>
   }
 </ul>
