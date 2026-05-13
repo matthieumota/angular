@@ -9,10 +9,11 @@ import { User } from './models/user';
 import { PizzaRepository } from './services/pizza-repository';
 import { delay, map, Observable, repeat } from 'rxjs';
 import { Cart } from './services/cart';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, CommonModule, PizzaSelected, Counter, Author],
+  imports: [FormsModule, CommonModule, PizzaSelected, Counter, Author, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
