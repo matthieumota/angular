@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { Pizza } from '../models/pizza';
 
 export type CartItem = {
@@ -22,6 +22,18 @@ export class Cart {
     }
     return total;
   })
+
+  constructor() {
+    effect(() => {
+      const items = localStorage.getItem('cart');
+
+      if (items) {
+        this.items.set(JSON.parse(items));
+      }
+
+      localStorage.setItem('cart', JSON.stringify(this.items()));
+    });
+  }
 
   add(pizza: Pizza) {
     // const a = [1, 2, 3];
