@@ -84,8 +84,6 @@ export class FakeInterceptor implements HttpInterceptor {
           // return response('Unauthorized', 401);
         }
 
-        console.log(pizzas)
-
         return response(pizzas.filter(p => p.name.toLowerCase().includes(queryString('q'))));
     } else if (url.endsWith('/api/pizzas') && method === 'POST') {
       let pizza = body;
