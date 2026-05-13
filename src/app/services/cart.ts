@@ -10,7 +10,18 @@ export type CartItem = {
   providedIn: 'root',
 })
 export class Cart {
-  items = signal<CartItem[]>([]);
+  items = signal<CartItem[]>((() => {
+    try {
+      return JSON.parse(localStorage.getItem('items') ?? '[]');
+    } catch {
+      return [];
+    }
+  })());
+
+  constructor() {
+    effect(() => localStorage.setItem('items', JSON.stringify(this.items())));
+  }
+
   total = computed(() => this.items().reduce((acc, item) => acc + item.pizza.price * item.quantity, 0));
   count = computed(() => this.items().reduce((acc, item) => acc + item.quantity, 0));
   itemIds = computed(() => new Set(this.items().map(item => item.pizza.id)));
