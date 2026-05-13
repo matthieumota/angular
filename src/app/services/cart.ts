@@ -19,7 +19,11 @@ export class Cart {
   })());
 
   constructor() {
-    effect(() => localStorage.setItem('items', JSON.stringify(this.items())));
+    effect(() => {
+      try {
+        localStorage.setItem('items', JSON.stringify(this.items()));
+      } catch {}
+    });
   }
 
   total = computed(() => this.items().reduce((acc, item) => acc + item.pizza.price * item.quantity, 0));

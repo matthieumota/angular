@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,5 @@ import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
   styleUrl: './app.scss'
 })
 export class App {
-  protected title: string = 'Pizza Party';
+  protected title: string = `Pizza Party ${environment.apiUrl}`;
 }

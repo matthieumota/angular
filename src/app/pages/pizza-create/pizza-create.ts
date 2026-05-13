@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PizzaRepository } from '../../services/pizza-repository';
@@ -11,7 +10,7 @@ export type PizzaDraft = {
 
 @Component({
   selector: 'app-pizza-create',
-  imports: [FormsModule, JsonPipe],
+  imports: [FormsModule],
   templateUrl: './pizza-create.html',
   styleUrl: './pizza-create.scss',
 })
